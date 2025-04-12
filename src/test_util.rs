@@ -13,7 +13,7 @@ use crate::{
 use ark_bls12_381::Bls12_381;
 use ark_crypto_primitives::{
     commitment::{self, constraints::CommitmentGadget, CommitmentScheme},
-    crh::{bowe_hopwood, pedersen, TwoToOneCRH, CRH},
+    crh::{pedersen, pedersen, TwoToOneCRH, CRH},
 };
 use ark_ec::PairingEngine;
 use ark_ed_on_bls12_381::{
@@ -72,6 +72,13 @@ impl pedersen::Window for Window9x63 {
 }
 
 #[derive(Clone)]
+pub struct Window9x128;
+impl pedersen::Window for Window9x63 {
+    const WINDOW_SIZE: usize = 128;
+    const NUM_WINDOWS: usize = 11;
+}
+
+#[derive(Clone)]
 pub struct Window17x63;
 impl pedersen::Window for Window17x63 {
     const WINDOW_SIZE: usize = 63;
@@ -95,8 +102,8 @@ pub(crate) type E = Bls12_381;
 pub(crate) type Fr = <E as PairingEngine>::Fr;
 
 // Pick a two-to-one CRH
-pub type TestTreeH = bowe_hopwood::CRH<EdwardsParameters, Window9x63>;
-pub type TestTreeHG = bowe_hopwood::constraints::CRHGadget<EdwardsParameters, FqVar>;
+pub type TestTreeH = pedersen::CRH<EdwardsParameters, Window9x128>;
+pub type TestTreeHG = pedersen::constraints::CRHGadget<EdwardsParameters, FqVar, Window9x128>;
 
 // Pick a commitment scheme
 pub type TestComSchemePedersen = CompressedPedersenCom<Window8x128>;
