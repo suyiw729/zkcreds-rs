@@ -72,6 +72,13 @@ impl pedersen::Window for Window9x63 {
 }
 
 #[derive(Clone)]
+pub struct Window9x128;
+impl pedersen::Window for Window9x128 {
+    const WINDOW_SIZE: usize = 128;
+    const NUM_WINDOWS: usize = 11; // 必须与 Pedersen 参数匹配
+}
+
+#[derive(Clone)]
 pub struct Window17x63;
 impl pedersen::Window for Window17x63 {
     const WINDOW_SIZE: usize = 63;
@@ -95,8 +102,8 @@ pub(crate) type E = Bls12_381;
 pub(crate) type Fr = <E as PairingEngine>::Fr;
 
 // Pick a two-to-one CRH
-pub type TestTreeH = pedersen::CRH<EdwardsParameters, Window9x63>;
-pub type TestTreeHG = pedersen::constraints::CRHGadget<EdwardsParameters, FqVar>;
+pub type TestTreeH = pedersen::CRH<Bls12_381, Window9x63>;
+pub type TestTreeHG = pedersen::constraints::CRHGadget<EdwardsParameters, FqVar，Window9x128>;
 
 // Pick a commitment scheme
 pub type TestComSchemePedersen = CompressedPedersenCom<Window8x128>;
