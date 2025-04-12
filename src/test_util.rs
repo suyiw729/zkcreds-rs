@@ -13,7 +13,7 @@ use crate::{
 use ark_bls12_381::Bls12_381;
 use ark_crypto_primitives::{
     commitment::{self, constraints::CommitmentGadget, CommitmentScheme},
-    crh::{bowe_hopwood, pedersen, TwoToOneCRH, CRH},
+    crh::{pedersen, pedersen, TwoToOneCRH, CRH},
 };
 use ark_ec::PairingEngine;
 use ark_ed_on_bls12_381::{
