@@ -95,8 +95,8 @@ pub(crate) type E = Bls12_381;
 pub(crate) type Fr = <E as PairingEngine>::Fr;
 
 // Pick a two-to-one CRH
-pub type TestTreeH = bowe_hopwood::CRH<EdwardsParameters, Window9x63>;
-pub type TestTreeHG = bowe_hopwood::constraints::CRHGadget<EdwardsParameters, FqVar>;
+pub type TestTreeH = pedersen::CRH<EdwardsParameters, Window9x63>;
+pub type TestTreeHG = pedersen::constraints::CRHGadget<EdwardsParameters, FqVar>;
 
 // Pick a commitment scheme
 pub type TestComSchemePedersen = CompressedPedersenCom<Window8x128>;
